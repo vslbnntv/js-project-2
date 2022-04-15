@@ -97,6 +97,8 @@ padding-bottom: 7px;
 #todo-list {
     border-radius: 10px;
     border: 1px solid #ededed;
+    padding: 15px 25px;
+    list-style: none;
 }
 
 input {
