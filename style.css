@@ -1,0 +1,109 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100;200;300;400;500;600;700;800;900&family=Roboto:wght@900&display=swap');
+h1{
+font-family: 'Roboto', sans-serif;
+font-size: 10px;
+display: flex;
+justify-content: center;
+padding-top: 20px;
+padding-bottom: 7px;
+}
+.box{
+    margin:auto ;
+    margin-top: 50px;
+    border: 0.5px solid #C4C4C4;
+    border-radius: 10px;
+    width: 300px;
+    height: auto;
+}
+.header{
+    height: 30px;
+    border-radius: 10px 10px 0 0;
+    background-color: #FFDC40;
+}
+.header:hover{
+    background-color: #ebd15f;
+}
+
+.sort-button{
+    margin-left: 206px; 
+}
+#sort-btn svg:hover *{
+    fill: #000000;
+}
+#sort-btn{
+    color: black;
+    border: none;
+    background: none;
+    padding-left: 20px; 
+}
+.image-74{
+    
+        position: relative;
+        left: 248px;
+        top: -3px;    
+}
+.plus-div{
+    border-radius: 42px;
+    width: 42px;
+    height: 42px;
+    background-color: #9953F1;
+    position: relative;
+    left: 60px;
+}
+.plus{
+    color: white; 
+    display: flex;
+    justify-content: center;
+    padding-top: 7px;
+}
+.plus-div:hover{
+    background-color: #4c2b74;
+}
+.add-click{
+    border-radius: 42px;
+    width: 150px;
+    height: 42px;
+    margin-left:23px ;
+    background-color: #833AE0;
+    display: flex;
+   justify-content: center;
+   align-items: center;
+}
+.add-click:hover{
+    background-color: #4c2b74;
+}
+.ba{
+    color:white;    
+   padding-left: 30px;
+   
+   
+}
+#add-btn{
+    background: none;
+    display: flex;
+    flex-direction: row;
+    border: none;
+    padding-right: 55px;
+    padding-bottom: 20px;
+}
+.deleteHover svg:hover *{
+    fill: #833AE0;
+}
+.deleteHover{
+    border: none;
+    background: none;
+}
+
+#todo-list {
+    border-radius: 10px;
+    border: 1px solid #ededed;
+}
+
+input {
+    outline: none;
+    border: none !important;
+}
+
+li {
+    border: none !important;
+}
