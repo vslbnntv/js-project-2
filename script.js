@@ -1,50 +1,20 @@
 
  const TODOS = 'TODOS';
 
- /**
-  * Application class that controlls application workflow.
-  */
  class Application {
-     /** 
-      * @private
-      * @readonly
-      * @type {HTMLLIElement}
-      */
+     
      _todoList;
  
-     /**
-      * @private
-      * @readonly
-      * @type {HTMLDivElement}
-      */
      _alertBlock;
  
-     /**
-      * @private
-      * @readonly
-      * @type {HTMLButtonElement}
-      */
      _addBtn;
  
-     /**
-      * @private
-      * @readonly
-      * @type {HTMLButtonElement}
-      */
+    
      _sortBtn;
  
-     /**
-      * Sort direction.
-      * @private
-      * @type {boolean}
-      */
      _sortDirection = false;
  
-     /**
-      * @private
-      * @readonly
-      * @type {TodoService} Todo service.
-      */
+     
      _todoService;
  
      constructor(todoService) {
@@ -59,16 +29,10 @@
          this._displayTodos();
      }
  
-     /**
-      * Todos.
-      * @private
-      */
+     
      get todos() { return this._todoService.getTodos(); }
  
-     /**
-      * Displays todos.
-      * @private
-      */
+     
      _displayTodos() {
          const todos = this.todos;
  
@@ -77,16 +41,14 @@
          todos.forEach(t => {
              const listItem = document.createElement('li');
              listItem.classList.add('list-group-item', 'd-flex', 'justify-content-between', 'align-items-center', );
-             //#region Creating todo input.
              const input = document.createElement('input');
              input.value = t.title;
 
              input.addEventListener('change', e => this._handleEdit(t.id, e.target.value));
  
              listItem.append(input);
-             //#endregion
+
  
-             //#region Creating delete button.
              const deleteBtn = document.createElement('button');
              deleteBtn.classList.add('deleteHover');
              deleteBtn.innerHTML = `
@@ -101,16 +63,11 @@
              deleteBtn.addEventListener('click', e => this._handleDelete(t.id));
  
              listItem.append(deleteBtn);
-             //#endregion
  
              this._todoList.append(listItem);
          });
      }
- 
-     /**
-      * Todo add handler.
-      * @private
-      */
+
      _handleAdd() {
          try {
              this._todoService.addTodo();
@@ -119,13 +76,7 @@
              this._showError(error.message);
          }
      }
- 
-     /**
-      * Todo edit handler.
-      * @param {number} id Todo identifier.
-      * @param {string} title Title.
-      * @private
-      */
+
      _handleEdit(id, title) {
          try {
              this._todoService.editTodo(id, title);
@@ -134,21 +85,12 @@
              this._showError(error.message);
          }
      }
- 
-     /**
-      * Todo delete handler.
-      * @param {number} id Todo identifier.
-      * @private
-      */
+
      _handleDelete(id) {
          this._todoService.deleteTodo(id);
          this._displayTodos();
      }
- 
-     /**
-      * Todo sort handler.
-      * @private
-      */
+
      _handleSort() {
          this._todoService.sortTodos(this._sortDirection);
          this._sortDirection = !this._sortDirection;
@@ -173,12 +115,6 @@
          `) ;
          this._displayTodos();
      }
- 
-     /**
-      * Shows error message.
-      * @param {string} message Error message.
-      * @private
-      */
      _showError(message) {
          // console.log(message);
          const wrapper = document.createElement('div');
@@ -196,14 +132,7 @@
  
          this._displayTodos();
      }
- 
-     /**
-      * Gets element by selector.
-      * @param {string} selector Element selector for getting element from document.
-      * @private
-      * @throws Throws error if there are no element with given selector.
-      * @returns {HTMLElement} HTML element.
-      */
+
      _getElement(selector) {
          const element = document.querySelector(selector);
  
@@ -211,62 +140,33 @@
          throw new Error(`There are no such element for ${selector} selector.`);
      }
  }
- 
- /**
-  * Service for manage Todos.
-  */
+
  class TodoService {
-     /**
-      * Todo's collection
-      * @private
-      * @type {{id: number, title: string}[]}
-      */
-     _todos;
  
-     /**
-      * Creates todo service.
-      * @param {{id: number, title: string}[]} todos If passed, todos from storage will be combined with passed todos.
-      */
+     _todos;
+
      constructor(todos = []) {
          this._todos = todos;
          this._init();
      }
- 
-     /**
-      * Initializes todos.
-      * @private
-      */
+
      _init() {
-         /**
-          * @type {{id: number, title: string}[]}
-          */
+       
          const todos = JSON.parse(localStorage.getItem(TODOS) || '[]');
  
          this._todos = [...this._todos, ...todos];
      }
  
-     /**
-      * Commits todos into storage.
-      * @private
-      */
      _commit() {
          localStorage.setItem(TODOS, JSON.stringify(this._todos));
      }
  
-     /**
-      * Gets all todos.
-      * @returns {{id: number, title: string}[]} Todo list.
-      */
+    
      getTodos() {
          return [...this._todos];
      }
  
-     /**
-      * Adds new todo by title.
-      * @param {string?} title Todo's title.
-      * @returns {{id: number, title: string}} Added todo.
-      * @throws Throws error if there is empty todo in list.
-      */
+    
      addTodo(title = '') {
          if (!this._todos.some(t => !t.title)) {
              const todo = { id: this._generateId(), title };
@@ -277,11 +177,7 @@
          throw new Error('Zəhmət olmasa xananı doldur');
      }
  
-     /**
-      * Deletes todo by id.
-      * @param {number} id Todo's id for delete.
-      * @returns {number} Todo's array length.
-      */
+     
      deleteTodo(id) {
          this._todos = this._todos.filter(t => t.id !== id);
          this._commit();
@@ -289,12 +185,6 @@
      }
  
  
-     /**
-      * Edits todo by id.
-      * @param {number} id Todo's id.
-      * @param {string} title Title.
-      * @throws Throws error when title argument is empty.
-      */
      editTodo(id, title) {
          if (title) {
              const todos = [...this._todos];
@@ -306,17 +196,12 @@
          }
      }
  
-     /**
-      * Sorts array depends on direction parameter.
-      * @param {boolean} direction If true array will be sorted in ascending order, otherwise in descending.
-      */
+     
      sortTodos(direction) {
          let todos = [...this._todos].filter(t => t.title).sort((t1, t2) => t1.title.toUpperCase() > t2.title.toUpperCase() ? 1 : -1);
  
          if (!direction) {
-             // Sort then reverse method of sorting is preferable method of sorting with higher performance. 
-             // I just googled it now))
-             // So it is okay, use it.
+             
              todos.reverse();
          }
  
@@ -325,22 +210,11 @@
          this._commit();
      }
  
-     /**
-      * Generates next available id or 1 if todo array is empty.
-      * @private
-      * @returns {number} Id.
-      */
+    
      _generateId() {
          return this._todos?.length ? (this._todos[0].id + 1) : 1;
      }
  
-     /**
-      * Gets index of todo in "todo" array.
-      * @private
-      * @param {number} id Todo id.
-      * @throws Throws error when there are no todo with given id.
-      * @returns Index of todo in "todos" array.
-      */
      _getIndex(id) {
          const index = this._todos.findIndex(t => t.id === id);
  
